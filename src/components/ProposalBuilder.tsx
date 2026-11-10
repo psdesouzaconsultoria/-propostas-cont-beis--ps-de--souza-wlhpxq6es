@@ -276,10 +276,12 @@ export default function ProposalBuilder({ initialProposal, onSaved }: ProposalBu
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-900 text-white p-5 rounded-2xl shadow-xl border border-slate-800">
         <div>
           <div className="flex items-center gap-2">
-            <span className="p-1.5 bg-amber-500 text-slate-950 font-bold rounded-md text-xs uppercase">
+            <span className="p-1.5 bg-brand-gold text-brand-navy font-bold rounded-md text-xs uppercase">
               {editingId ? 'Editando Proposta' : 'Nova Proposta'}
             </span>
-            {code && <span className="font-mono text-xs text-amber-400 font-bold">{code}</span>}
+            {code && (
+              <span className="font-mono text-xs text-brand-gold-light font-bold">{code}</span>
+            )}
           </div>
           <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white mt-1">
             Simulador de Honorários & Proposta Comercial
@@ -296,14 +298,14 @@ export default function ProposalBuilder({ initialProposal, onSaved }: ProposalBu
             variant="outline"
             className="text-slate-100 border-slate-700 bg-slate-800 hover:bg-slate-700 font-semibold gap-2 cursor-pointer shadow-sm"
           >
-            <Printer className="w-4 h-4 text-amber-400" />
+            <Printer className="w-4 h-4 text-brand-gold-light" />
             Visualizar / Gerar PDF
           </Button>
 
           <Button
             onClick={handleSaveProposal}
             disabled={isSaving}
-            className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold gap-2 cursor-pointer shadow-md"
+            className="bg-brand-gold hover:bg-brand-gold-dark text-brand-navy font-bold gap-2 cursor-pointer shadow-md"
           >
             <Save className="w-4 h-4" />
             {isSaving ? 'Salvando...' : 'Salvar no Histórico'}
@@ -318,7 +320,7 @@ export default function ProposalBuilder({ initialProposal, onSaved }: ProposalBu
           <Card>
             <CardHeader className="pb-3">
               <CardTitle className="text-base flex items-center gap-2 text-slate-900 dark:text-white">
-                <Building className="w-4 h-4 text-amber-500" />
+                <Building className="w-4 h-4 text-brand-gold" />
                 1. Identificação do Cliente
               </CardTitle>
               <CardDescription>
@@ -382,7 +384,7 @@ export default function ProposalBuilder({ initialProposal, onSaved }: ProposalBu
           <Card>
             <CardHeader className="pb-3">
               <CardTitle className="text-base flex items-center gap-2 text-slate-900 dark:text-white">
-                <Calculator className="w-4 h-4 text-amber-500" />
+                <Calculator className="w-4 h-4 text-brand-gold" />
                 2. Parâmetros & Operação do Cliente
               </CardTitle>
               <CardDescription>
@@ -409,7 +411,7 @@ export default function ProposalBuilder({ initialProposal, onSaved }: ProposalBu
               <div className="space-y-1.5">
                 <div className="flex justify-between items-center">
                   <Label className="text-xs font-semibold">Faturamento Médio Mensal (R$)</Label>
-                  <span className="text-xs font-bold text-amber-600 dark:text-amber-400">
+                  <span className="text-xs font-bold text-brand-gold-dark">
                     {formatCurrency(Number(monthlyRevenue) || 0)}
                   </span>
                 </div>
@@ -470,7 +472,7 @@ export default function ProposalBuilder({ initialProposal, onSaved }: ProposalBu
           <Card>
             <CardHeader className="pb-3">
               <CardTitle className="text-base flex items-center gap-2 text-slate-900 dark:text-white">
-                <FileCheck className="w-4 h-4 text-amber-500" />
+                <FileCheck className="w-4 h-4 text-brand-gold" />
                 3. Personalização Comercial do PDF
               </CardTitle>
               <CardDescription>
@@ -489,7 +491,7 @@ export default function ProposalBuilder({ initialProposal, onSaved }: ProposalBu
                       key={p}
                       className={`flex items-center gap-2 p-2 rounded-lg border text-xs cursor-pointer transition-colors ${
                         includedPlans.includes(p)
-                          ? 'bg-amber-50 border-amber-300 text-amber-950 dark:bg-amber-950/40 dark:border-amber-800 dark:text-amber-200'
+                          ? 'bg-brand-gold/10 border-brand-gold text-brand-navy dark:bg-brand-gold/20 dark:border-brand-gold dark:text-brand-gold-light'
                           : 'bg-slate-50 border-slate-200 text-slate-500 dark:bg-slate-900 dark:border-slate-800'
                       }`}
                     >
@@ -497,7 +499,7 @@ export default function ProposalBuilder({ initialProposal, onSaved }: ProposalBu
                         type="checkbox"
                         checked={includedPlans.includes(p)}
                         onChange={() => handleToggleIncludedPlan(p)}
-                        className="rounded text-amber-600 focus:ring-amber-500"
+                        className="rounded text-brand-gold-dark focus:ring-brand-gold"
                       />
                       <span className="capitalize font-bold">{p}</span>
                     </label>
@@ -522,7 +524,7 @@ export default function ProposalBuilder({ initialProposal, onSaved }: ProposalBu
                         key={p}
                         className={`flex items-center space-x-2 border rounded-lg p-2 text-xs ${
                           recommendedPlan === p
-                            ? 'border-amber-500 bg-amber-500/10 font-bold'
+                            ? 'border-brand-gold bg-brand-gold/10 font-bold'
                             : 'border-slate-200 dark:border-slate-800'
                         } ${isDisabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}
                       >
@@ -540,7 +542,7 @@ export default function ProposalBuilder({ initialProposal, onSaved }: ProposalBu
               <div className="flex items-center justify-between p-3 border rounded-xl bg-slate-50/50 dark:bg-slate-900/40">
                 <div className="space-y-0.5">
                   <div className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-                    <Briefcase className="w-3.5 h-3.5 text-amber-600" />
+                    <Briefcase className="w-3.5 h-3.5 text-brand-gold-dark" />
                     Incluir Tabela de Serviços Societários no PDF
                   </div>
                   <div className="text-[11px] text-slate-500">
@@ -571,7 +573,7 @@ export default function ProposalBuilder({ initialProposal, onSaved }: ProposalBu
           {/* Header of results */}
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-amber-500" />
+              <TrendingUp className="w-5 h-5 text-brand-gold" />
               Composição de Preços Linha por Linha
             </h3>
             <Badge variant="outline" className="text-xs">
@@ -591,7 +593,7 @@ export default function ProposalBuilder({ initialProposal, onSaved }: ProposalBu
                   key={pKey}
                   className={`relative flex flex-col justify-between transition-all overflow-hidden ${
                     isRecommended
-                      ? 'border-2 border-amber-500 shadow-xl ring-2 ring-amber-400/30'
+                      ? 'border-2 border-brand-gold shadow-xl ring-2 ring-brand-gold/30'
                       : 'border-slate-200 dark:border-slate-800'
                   } ${!isIncludedInPdf ? 'opacity-50' : ''}`}
                 >
@@ -600,14 +602,14 @@ export default function ProposalBuilder({ initialProposal, onSaved }: ProposalBu
                     <div
                       className={`p-3 text-center border-b ${
                         pKey === 'ouro'
-                          ? 'bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700 text-white'
+                          ? 'bg-gradient-to-r from-brand-navy to-brand-navy-dark text-white'
                           : pKey === 'prata'
                             ? 'bg-gradient-to-r from-slate-700 to-slate-800 text-white'
-                            : 'bg-gradient-to-r from-amber-800 to-amber-900 text-white'
+                            : 'bg-gradient-to-r from-brand-navy-light to-brand-navy text-white'
                       }`}
                     >
                       {isRecommended && (
-                        <span className="inline-block bg-amber-400 text-slate-950 font-black text-[9px] uppercase px-2 py-0.5 rounded-full mb-1">
+                        <span className="inline-block bg-brand-gold text-brand-navy font-black text-[9px] uppercase px-2 py-0.5 rounded-full mb-1">
                           ★ Recomendado
                         </span>
                       )}
@@ -657,7 +659,7 @@ export default function ProposalBuilder({ initialProposal, onSaved }: ProposalBu
                         <span
                           className={`font-semibold ${
                             breakdown.excessInvoices > 0
-                              ? 'text-amber-600 dark:text-amber-400'
+                              ? 'text-brand-gold-dark'
                               : 'text-slate-900 dark:text-white'
                           }`}
                         >
@@ -688,7 +690,7 @@ export default function ProposalBuilder({ initialProposal, onSaved }: ProposalBu
               <div className="flex items-center justify-between">
                 <div>
                   <CardTitle className="text-base flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-amber-500" />
+                    <ShieldCheck className="w-4 h-4 text-brand-gold" />
                     Tabela &quot;O Que Está Incluso&quot; (Filtrada por Regime)
                   </CardTitle>
                   <CardDescription>
@@ -759,7 +761,7 @@ export default function ProposalBuilder({ initialProposal, onSaved }: ProposalBu
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-bold flex items-center justify-between">
                   <span className="flex items-center gap-1.5">
-                    <Briefcase className="w-4 h-4 text-amber-500" />
+                    <Briefcase className="w-4 h-4 text-brand-gold" />
                     Card do Societário Ativo ({corporateServices.length} serviços cadastrados)
                   </span>
                   <Badge className="bg-emerald-100 text-emerald-800 border-emerald-300 text-[10px]">

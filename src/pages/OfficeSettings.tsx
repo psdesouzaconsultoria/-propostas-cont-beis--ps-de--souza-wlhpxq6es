@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { getOfficeSettings, saveOfficeSettings, defaultPricingConfig } from '@/services/settings'
 import type { OfficeSettings, PricingConfig, TaxRegimeKey, PlanKey } from '@/types/proposal'
 import { TAX_REGIME_LABELS, formatCurrency } from '@/lib/pricingEngine'
+import { DEFAULT_LOGO, resolveLogoUrl } from '@/lib/brand'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -9,10 +10,22 @@ import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { toast } from '@/hooks/use-toast'
-import { Building2, Save, RefreshCw, DollarSign, Calculator, Layers, FileText } from 'lucide-react'
+import {
+  Building2,
+  Save,
+  RefreshCw,
+  DollarSign,
+  Calculator,
+  Layers,
+  ImageUp,
+  Trash2,
+} from 'lucide-react'
 
 export default function OfficeSettingsPage() {
   const [settings, setSettings] = useState<OfficeSettings | null>(null)
+  const [logoFile, setLogoFile] = useState<File | null>(null)
+  const [logoPreview, setLogoPreview] = useState<string | null>(null)
+  const [removeLogo, setRemoveLogo] = useState(false)
   const [pricing, setPricing] = useState<PricingConfig>(defaultPricingConfig)
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
@@ -26,6 +39,9 @@ export default function OfficeSettingsPage() {
     try {
       const data = await getOfficeSettings()
       setSettings(data)
+      setLogoPreview(null)
+      setLogoFile(null)
+      setRemoveLogo(false)
       setPricing(data.pricing_config || defaultPricingConfig)
     } catch (err) {
       console.error(err)
@@ -46,8 +62,14 @@ export default function OfficeSettingsPage() {
       const updated = await saveOfficeSettings({
         ...settings,
         pricing_config: pricing,
+        // Ao remover a logo, envia nome vazio para limpar o campo arquivo
+        ...(removeLogo ? { logo: '' } : {}),
+        logoFile: removeLogo ? null : logoFile,
       })
       setSettings(updated)
+      setLogoFile(null)
+      setLogoPreview(null)
+      setRemoveLogo(false)
       toast({
         title: 'Sucesso!',
         description: 'Dados do escritório e regras de preço salvos com sucesso.',
@@ -73,6 +95,22 @@ export default function OfficeSettingsPage() {
     )
   }
 
+  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setLogoFile(file)
+    setRemoveLogo(false)
+    const reader = new FileReader()
+    reader.onload = () => setLogoPreview(reader.result as string)
+    reader.readAsDataURL(file)
+  }
+
+  const currentLogoSrc = () => {
+    if (logoPreview) return logoPreview
+    if (removeLogo) return DEFAULT_LOGO
+    return resolveLogoUrl(settings)
+  }
+
   const regimes: TaxRegimeKey[] = [
     'simples_servico',
     'simples_comercio',
@@ -86,7 +124,7 @@ export default function OfficeSettingsPage() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
-            <Building2 className="w-6 h-6 text-amber-500" />
+            <Building2 className="w-6 h-6 text-brand-gold-dark" />
             Configuração do Escritório & Tabela de Preços
           </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400">
@@ -98,7 +136,7 @@ export default function OfficeSettingsPage() {
         <Button
           onClick={handleSave}
           disabled={isSaving}
-          className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold gap-2 shadow-md cursor-pointer"
+          className="bg-brand-navy hover:bg-brand-navy-light text-white font-semibold gap-2 shadow-md cursor-pointer"
         >
           <Save className="w-4 h-4" />
           {isSaving ? 'Salvando...' : 'Salvar Alterações'}
@@ -120,6 +158,66 @@ export default function OfficeSettingsPage() {
 
         {/* Tab 1: Dados do Escritório */}
         <TabsContent value="office" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <ImageUp className="w-5 h-5 text-brand-gold-dark" /> Logo do Escritório
+              </CardTitle>
+              <CardDescription>
+                Aparece na barra de navegação, na tela de login e no cabeçalho/rodapé do PDF da
+                proposta. A logo oficial da PS DE SOUZA já vem configurada por padrão.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
+                <img
+                  src={currentLogoSrc()}
+                  alt="Logo do escritório"
+                  className="h-24 w-24 rounded-xl object-cover object-top border-2 border-brand-navy/20 shadow-md"
+                />
+                <div className="space-y-3">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <label htmlFor="logo-upload">
+                      <span className="inline-flex items-center gap-2 text-xs font-semibold text-brand-navy bg-brand-gold hover:bg-brand-gold-dark cursor-pointer px-3 py-2 rounded-md shadow-sm transition-colors">
+                        <ImageUp className="w-3.5 h-3.5" />
+                        {settings.logo ? 'Trocar imagem' : 'Enviar imagem'}
+                      </span>
+                      <input
+                        id="logo-upload"
+                        type="file"
+                        accept="image/png,image/jpeg,image/webp,image/svg+xml"
+                        className="hidden"
+                        onChange={handleLogoChange}
+                      />
+                    </label>
+
+                    {settings.logo && !removeLogo && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="text-red-600 border-red-200 hover:bg-red-50 cursor-pointer"
+                        onClick={() => {
+                          setRemoveLogo(true)
+                          setLogoFile(null)
+                          setLogoPreview(null)
+                        }}
+                      >
+                        <Trash2 className="w-3.5 h-3.5 mr-1" />
+                        Remover (voltar à logo padrão)
+                      </Button>
+                    )}
+                  </div>
+                  <p className="text-xs text-slate-500 max-w-sm">
+                    {logoFile
+                      ? `Imagem selecionada: ${logoFile.name}. Clique em "Salvar Alterações" para aplicar.`
+                      : 'Formatos aceitos: PNG, JPG, WEBP ou SVG (até 5 MB).'}
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           <Card>
             <CardHeader>
               <CardTitle className="text-lg">Identificação Comercial</CardTitle>
@@ -388,7 +486,7 @@ export default function OfficeSettingsPage() {
           <Card>
             <CardHeader>
               <CardTitle className="text-base flex items-center gap-2">
-                <Layers className="w-4 h-4 text-amber-500" />
+                <Layers className="w-4 h-4 text-brand-gold-dark" />
                 Faixas de Faturamento Médio (Adicional Mensal em R$)
               </CardTitle>
               <CardDescription>

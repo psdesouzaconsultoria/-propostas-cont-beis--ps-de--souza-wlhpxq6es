@@ -18,6 +18,9 @@ export interface PricingConfig {
 
 export interface OfficeSettings {
   id: string
+  collectionId?: string
+  /** Nome do arquivo de imagem da logo enviado ao PocketBase (opcional). */
+  logo?: string
   office_name: string
   responsible_name: string
   contact_email: string

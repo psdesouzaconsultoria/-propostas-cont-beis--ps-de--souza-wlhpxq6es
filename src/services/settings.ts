@@ -38,6 +38,18 @@ export const defaultPricingConfig: PricingConfig = {
   },
 }
 
+const fallbackSettings: Omit<OfficeSettings, 'id'> = {
+  office_name: 'PS DE SOUZA CONSULTORIA & SERVIÇOS CONTÁBIL',
+  responsible_name: 'Paulo de Souza - Contador CRC/SP',
+  contact_email: 'psdesouzaconsultoria@gmail.com',
+  contact_phone: '(11) 98765-4321',
+  contact_website: 'www.psdesouza.com.br',
+  validity_days: 15,
+  commercial_notes:
+    'Valores para pagamento até o dia 10 de cada mês via boleto ou Pix. Reajuste anual pelo IPCA. Não estão inclusas taxas de órgãos públicos (JUCESP, Receita, Prefeitura) ou certificados digitais.',
+  pricing_config: defaultPricingConfig,
+}
+
 export async function getOfficeSettings(): Promise<OfficeSettings> {
   try {
     const records = await pb.collection('settings').getFullList<OfficeSettings>({
@@ -57,26 +69,32 @@ export async function getOfficeSettings(): Promise<OfficeSettings> {
 
   return {
     id: '',
-    office_name: 'M&S Contabilidade & Consultoria Estratégica',
-    responsible_name: 'Paulo de Souza - Contador CRC/SP',
-    contact_email: 'contato@mscontabilidade.com.br',
-    contact_phone: '(11) 98765-4321',
-    contact_website: 'www.mscontabilidade.com.br',
-    validity_days: 15,
-    commercial_notes:
-      'Valores para pagamento até o dia 10 de cada mês via boleto ou Pix. Reajuste anual pelo IPCA. Não estão inclusas taxas de órgãos públicos (JUCESP, Receita, Prefeitura) ou certificados digitais.',
-    pricing_config: defaultPricingConfig,
+    ...fallbackSettings,
   }
 }
 
 export async function saveOfficeSettings(
-  settings: Partial<OfficeSettings>,
+  settings: Partial<OfficeSettings> & { logoFile?: File | null },
 ): Promise<OfficeSettings> {
+  // O arquivo da logo é enviado via FormData e não vai como JSON
+  const { logoFile, ...data } = settings
+
+  let body: Partial<OfficeSettings> | FormData = data
+  if (logoFile) {
+    const form = new FormData()
+    Object.entries(data).forEach(([key, value]) => {
+      if (value === undefined || value === null) return
+      form.append(key, typeof value === 'object' ? JSON.stringify(value) : String(value))
+    })
+    form.append('logo', logoFile)
+    body = form
+  }
+
   if (settings.id) {
-    const updated = await pb.collection('settings').update<OfficeSettings>(settings.id, settings)
+    const updated = await pb.collection('settings').update<OfficeSettings>(settings.id, body)
     return updated
   } else {
-    const created = await pb.collection('settings').create<OfficeSettings>(settings)
+    const created = await pb.collection('settings').create<OfficeSettings>(body)
     return created
   }
 }

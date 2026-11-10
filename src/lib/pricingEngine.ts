@@ -34,12 +34,12 @@ export const PLAN_COLORS: Record<
 > = {
   bronze: {
     badge:
-      'bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-950/60 dark:text-amber-300 dark:border-amber-800',
-    border: 'border-amber-300 dark:border-amber-800',
-    bg: 'bg-amber-50/40 dark:bg-amber-950/20',
-    headerBg: 'bg-gradient-to-r from-amber-700 to-amber-900 text-white',
-    text: 'text-amber-800 dark:text-amber-300',
-    highlight: 'text-amber-900 dark:text-amber-200',
+      'bg-orange-100 text-orange-900 border-orange-300 dark:bg-orange-950/60 dark:text-orange-300 dark:border-orange-800',
+    border: 'border-orange-300 dark:border-orange-800',
+    bg: 'bg-orange-50/40 dark:bg-orange-950/20',
+    headerBg: 'bg-gradient-to-r from-brand-navy to-brand-navy-dark text-white',
+    text: 'text-orange-900 dark:text-orange-300',
+    highlight: 'text-brand-navy dark:text-orange-200',
   },
   prata: {
     badge:
@@ -55,9 +55,9 @@ export const PLAN_COLORS: Record<
       'bg-yellow-100 text-yellow-900 border-yellow-400 dark:bg-yellow-950/70 dark:text-yellow-300 dark:border-yellow-700',
     border: 'border-yellow-500/80 dark:border-yellow-600 shadow-lg ring-1 ring-yellow-400/40',
     bg: 'bg-yellow-50/40 dark:bg-yellow-950/20',
-    headerBg: 'bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 text-slate-950',
-    text: 'text-amber-900 dark:text-yellow-400',
-    highlight: 'text-yellow-950 dark:text-yellow-200',
+    headerBg: 'bg-gradient-to-r from-brand-gold to-brand-gold-dark text-brand-navy',
+    text: 'text-brand-gold-dark dark:text-yellow-400',
+    highlight: 'text-brand-navy dark:text-yellow-200',
   },
 }
 

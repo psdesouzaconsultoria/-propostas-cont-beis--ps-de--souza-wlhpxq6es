@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useAuth } from '@/context/AuthContext'
+import OfficeLogo from '@/components/OfficeLogo'
 import {
   Card,
   CardContent,
@@ -11,7 +12,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
-import { Calculator, Lock, Mail, ShieldCheck, AlertCircle } from 'lucide-react'
+import { Lock, Mail, ShieldCheck, AlertCircle } from 'lucide-react'
 
 export default function Login() {
   const { login } = useAuth()
@@ -36,25 +37,28 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 flex flex-col justify-center items-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-brand-navy via-[#0B2340] to-brand-navy-dark flex flex-col justify-center items-center p-4">
       <div className="w-full max-w-md">
-        {/* Brand header */}
+        {/* Brand header com a logo oficial do escritório */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 mb-4 shadow-xl backdrop-blur-sm">
-            <Calculator className="w-8 h-8" />
+          <div className="inline-flex items-center justify-center rounded-2xl overflow-hidden ring-2 ring-brand-gold/60 shadow-2xl shadow-black/40 mb-5">
+            <OfficeLogo className="h-32 w-32 object-cover" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
-            App de Propostas Contábeis
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-serif">
+            PS DE SOUZA
           </h1>
-          <p className="text-sm text-slate-400 mt-2">
+          <p className="text-sm text-brand-gold-light tracking-[0.2em] uppercase mt-1">
+            Consultoria & Serviços Contábil
+          </p>
+          <p className="text-sm text-slate-300/80 mt-3">
             Simulador de Honorários & Gerador Comercial em 3 Planos
           </p>
         </div>
 
-        <Card className="border-slate-700/60 bg-slate-900/90 backdrop-blur-md shadow-2xl text-slate-100">
+        <Card className="border-white/10 bg-white/5 backdrop-blur-md shadow-2xl text-white">
           <CardHeader className="space-y-1">
             <CardTitle className="text-xl text-white">Acesso do Escritório</CardTitle>
-            <CardDescription className="text-slate-400">
+            <CardDescription className="text-slate-300">
               Entre com suas credenciais para elaborar propostas e gerenciar preços
             </CardDescription>
           </CardHeader>
@@ -69,7 +73,7 @@ export default function Login() {
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-slate-300">
+                <Label htmlFor="email" className="text-slate-200">
                   E-mail do Responsável
                 </Label>
                 <div className="relative">
@@ -81,13 +85,13 @@ export default function Login() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="contador@escritorio.com.br"
-                    className="pl-9 bg-slate-800/80 border-slate-700 text-white placeholder:text-slate-500 focus-visible:ring-amber-500"
+                    className="pl-9 bg-brand-navy-dark/70 border-white/15 text-white placeholder:text-slate-500 focus-visible:ring-brand-gold"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-slate-300">
+                <Label htmlFor="password" className="text-slate-200">
                   Senha
                 </Label>
                 <div className="relative">
@@ -99,13 +103,13 @@ export default function Login() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="pl-9 bg-slate-800/80 border-slate-700 text-white placeholder:text-slate-500 focus-visible:ring-amber-500"
+                    className="pl-9 bg-brand-navy-dark/70 border-white/15 text-white placeholder:text-slate-500 focus-visible:ring-brand-gold"
                   />
                 </div>
               </div>
 
-              <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-300/90 flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 shrink-0 text-amber-400" />
+              <div className="p-3 rounded-lg bg-brand-gold/10 border border-brand-gold/25 text-xs text-brand-gold-light flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 shrink-0 text-brand-gold" />
                 <span>
                   Ambiente seguro do escritório. Acesso pré-configurado com a conta do
                   administrador.
@@ -117,7 +121,7 @@ export default function Login() {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold shadow-lg shadow-amber-500/20 transition-all cursor-pointer"
+                className="w-full bg-brand-gold hover:bg-brand-gold-dark text-brand-navy font-bold shadow-lg shadow-brand-gold/25 transition-all cursor-pointer"
               >
                 {isSubmitting ? 'Autenticando...' : 'Acessar Simulador de Propostas'}
               </Button>
@@ -125,8 +129,9 @@ export default function Login() {
           </form>
         </Card>
 
-        <p className="text-center text-xs text-slate-500 mt-6">
-          © {new Date().getFullYear()} M&S Contabilidade. Todos os direitos reservados.
+        <p className="text-center text-xs text-slate-400/70 mt-6">
+          © {new Date().getFullYear()} PS DE SOUZA Consultoria & Serviços Contábil. Todos os
+          direitos reservados.
         </p>
       </div>
     </div>

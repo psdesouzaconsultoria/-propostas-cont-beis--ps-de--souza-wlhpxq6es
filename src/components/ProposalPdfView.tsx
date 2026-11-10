@@ -14,6 +14,8 @@ import {
 } from '@/lib/pricingEngine'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import OfficeLogo from '@/components/OfficeLogo'
+import { resolveLogoUrl } from '@/lib/brand'
 import {
   Printer,
   Download,
@@ -57,16 +59,17 @@ export default function ProposalPdfView({
   return (
     <div className="space-y-6">
       {/* Top Action Bar (hidden when printing) */}
-      <div className="no-print bg-slate-900 text-white p-4 rounded-xl flex flex-wrap items-center justify-between gap-4 shadow-lg sticky top-4 z-40">
+      <div className="no-print bg-brand-navy text-white p-4 rounded-xl flex flex-wrap items-center justify-between gap-4 shadow-lg sticky top-4 z-40 border-b-2 border-brand-gold">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-amber-500 text-slate-950 rounded-lg">
-            <Printer className="w-5 h-5" />
-          </div>
+          <OfficeLogo
+            src={resolveLogoUrl(settings)}
+            className="h-10 w-10 rounded-lg object-cover object-top ring-1 ring-white/20"
+          />
           <div>
             <h3 className="font-bold text-sm sm:text-base">
               Pré-visualização da Proposta Comercial em PDF
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-brand-gold-light">
               Pronto para salvar como PDF via comando de impressão do navegador ou enviar ao cliente
             </p>
           </div>
@@ -78,14 +81,14 @@ export default function ProposalPdfView({
               variant="outline"
               size="sm"
               onClick={onClose}
-              className="text-slate-300 border-slate-700 hover:bg-slate-800 cursor-pointer"
+              className="text-slate-200 border-white/25 hover:bg-white/10 cursor-pointer"
             >
               Voltar à Edição
             </Button>
           )}
           <Button
             onClick={handlePrint}
-            className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold gap-2 cursor-pointer shadow-md"
+            className="bg-brand-gold hover:bg-brand-gold-dark text-brand-navy font-bold gap-2 cursor-pointer shadow-md"
           >
             <Download className="w-4 h-4" />
             Imprimir / Baixar PDF
@@ -99,14 +102,15 @@ export default function ProposalPdfView({
         className="proposal-print-area bg-white text-slate-900 shadow-2xl rounded-2xl p-6 sm:p-10 max-w-5xl mx-auto border border-slate-200"
       >
         {/* 1. Header with Office Branding */}
-        <div className="border-b-2 border-amber-500 pb-6 mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="border-b-2 border-brand-gold pb-6 mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <span className="p-2 bg-amber-500 text-slate-950 font-black rounded-lg text-lg tracking-wider">
-                M&S
-              </span>
+            <div className="flex items-center gap-3">
+              <OfficeLogo
+                src={resolveLogoUrl(settings)}
+                className="h-16 w-16 sm:h-20 sm:w-20 rounded-xl object-cover object-top shadow-md border border-slate-200"
+              />
               <div>
-                <h1 className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 uppercase">
+                <h1 className="text-lg sm:text-2xl font-black tracking-tight text-brand-navy uppercase leading-tight">
                   {settings.office_name}
                 </h1>
                 <p className="text-xs text-slate-500 font-medium">{settings.responsible_name}</p>
@@ -115,11 +119,11 @@ export default function ProposalPdfView({
           </div>
 
           <div className="text-left sm:text-right text-xs text-slate-600 space-y-1">
-            <div className="font-mono font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded inline-block">
+            <div className="font-mono font-bold text-brand-gold-dark bg-brand-gold/10 border border-brand-gold/40 px-2.5 py-1 rounded inline-block">
               {proposal.code || 'PROPOSTA COMERCIAL'}
             </div>
             <div className="flex items-center sm:justify-end gap-1.5 text-slate-500 pt-1">
-              <Calendar className="w-3.5 h-3.5 text-amber-600" />
+              <Calendar className="w-3.5 h-3.5 text-brand-gold-dark" />
               <span>Data: {new Date().toLocaleDateString('pt-BR')}</span>
               {proposal.valid_until && (
                 <>
@@ -147,7 +151,7 @@ export default function ProposalPdfView({
 
         {/* 2. Client Profile Header */}
         <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-5 mb-8">
-          <div className="text-xs font-bold text-amber-700 uppercase tracking-wider mb-2">
+          <div className="text-xs font-bold text-brand-gold-dark uppercase tracking-wider mb-2">
             Dados do Cliente & Escopo Contratual
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs">
@@ -472,10 +476,20 @@ export default function ProposalPdfView({
             </div>
           </div>
 
-          {/* Footer Info */}
-          <div className="border-t pt-4 text-center text-[10px] text-slate-400">
-            {settings.office_name} • {settings.contact_email} • {settings.contact_phone} •{' '}
-            {settings.contact_website}
+          {/* Footer com a logo do escritório */}
+          <div className="border-t-2 border-brand-gold pt-4 mt-2 flex flex-col items-center gap-2">
+            <OfficeLogo
+              src={resolveLogoUrl(settings)}
+              className="h-12 w-12 rounded-lg object-cover object-top shadow-sm border border-slate-200"
+            />
+            <div className="text-center text-[10px] text-slate-500">
+              <div className="font-bold text-brand-navy text-[11px] uppercase tracking-wide">
+                {settings.office_name}
+              </div>
+              <div>
+                {settings.contact_email} • {settings.contact_phone} • {settings.contact_website}
+              </div>
+            </div>
           </div>
         </div>
       </div>

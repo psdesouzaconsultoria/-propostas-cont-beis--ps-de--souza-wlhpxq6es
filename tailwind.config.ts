@@ -31,6 +31,15 @@ export default {
         display: ['SF Pro Display', 'Inter var', 'system-ui', 'sans-serif'],
       },
       colors: {
+        /* Identidade visual PS DE SOUZA (cores da logo) */
+        brand: {
+          navy: '#0D2B4E',
+          'navy-dark': '#081C36',
+          'navy-light': '#16395F',
+          gold: '#F2A81D',
+          'gold-dark': '#D18A0A',
+          'gold-light': '#F7C15C',
+        },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
