@@ -41,8 +41,10 @@ export default function Login() {
       <div className="w-full max-w-md">
         {/* Brand header com a logo oficial do escritório */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center rounded-2xl overflow-hidden ring-2 ring-brand-gold/60 shadow-2xl shadow-black/40 mb-5">
-            <OfficeLogo className="h-32 w-32 object-cover" />
+          {/* Fundo branco discreto: a logo padrão é JPG sem transparência, e o
+              contêiner branco faz o fundo da imagem parecer intencional */}
+          <div className="inline-flex items-center justify-center bg-white rounded-2xl shadow-2xl shadow-black/30 px-6 py-4 mb-6">
+            <OfficeLogo className="h-24 w-auto max-w-[16rem]" />
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-serif">
             PS DE SOUZA

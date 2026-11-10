@@ -63,7 +63,7 @@ export default function ProposalPdfView({
         <div className="flex items-center gap-3">
           <OfficeLogo
             src={resolveLogoUrl(settings)}
-            className="h-10 w-10 rounded-lg object-cover object-top ring-1 ring-white/20"
+            className="h-10 w-auto rounded-lg bg-white/95 px-2 py-0.5 ring-1 ring-white/20"
           />
           <div>
             <h3 className="font-bold text-sm sm:text-base">
@@ -107,7 +107,7 @@ export default function ProposalPdfView({
             <div className="flex items-center gap-3">
               <OfficeLogo
                 src={resolveLogoUrl(settings)}
-                className="h-16 w-16 sm:h-20 sm:w-20 rounded-xl object-cover object-top shadow-md border border-slate-200"
+                className="h-14 sm:h-16 w-auto rounded-xl bg-white px-2 shadow-md border border-slate-200"
               />
               <div>
                 <h1 className="text-lg sm:text-2xl font-black tracking-tight text-brand-navy uppercase leading-tight">
@@ -480,7 +480,7 @@ export default function ProposalPdfView({
           <div className="border-t-2 border-brand-gold pt-4 mt-2 flex flex-col items-center gap-2">
             <OfficeLogo
               src={resolveLogoUrl(settings)}
-              className="h-12 w-12 rounded-lg object-cover object-top shadow-sm border border-slate-200"
+              className="h-12 w-auto rounded-lg bg-white px-2 py-0.5 shadow-sm border border-slate-200"
             />
             <div className="text-center text-[10px] text-slate-500">
               <div className="font-bold text-brand-navy text-[11px] uppercase tracking-wide">

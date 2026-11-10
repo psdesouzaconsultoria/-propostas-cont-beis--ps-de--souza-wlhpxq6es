@@ -83,7 +83,7 @@ export default function Index() {
           <div className="flex items-center gap-3">
             <OfficeLogo
               src={logoUrl}
-              className="h-11 w-11 rounded-lg object-cover object-top shadow-sm ring-1 ring-white/20"
+              className="h-11 w-auto rounded-lg bg-white/95 px-2 py-1 shadow-sm ring-1 ring-white/20"
             />
             <div>
               <h1 className="font-extrabold text-base sm:text-lg text-white leading-tight">
