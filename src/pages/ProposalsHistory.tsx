@@ -132,7 +132,7 @@ export default function ProposalsHistory({
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
-            <History className="w-6 h-6 text-amber-500" />
+            <History className="w-6 h-6 text-brand-gold-dark" />
             Histórico de Propostas Comerciais
           </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400">
@@ -226,7 +226,7 @@ export default function ProposalsHistory({
                       </div>
 
                       <div className="text-xs text-slate-600 dark:text-slate-300 flex items-center gap-2 pt-0.5">
-                        <span className="font-semibold text-amber-600 dark:text-amber-400">
+                        <span className="font-semibold text-brand-gold-dark">
                           Recomendado: Plano {recPlan.toUpperCase()} ({formatCurrency(recTotal)}
                           /mês)
                         </span>
@@ -260,7 +260,7 @@ export default function ProposalsHistory({
                         className="cursor-pointer gap-1.5 text-xs text-slate-700 dark:text-slate-300"
                         title="Ver / Baixar PDF"
                       >
-                        <Printer className="w-3.5 h-3.5 text-amber-500" />
+                        <Printer className="w-3.5 h-3.5 text-brand-gold-dark" />
                         <span className="hidden sm:inline">PDF</span>
                       </Button>
 
@@ -268,7 +268,7 @@ export default function ProposalsHistory({
                         variant="outline"
                         size="sm"
                         onClick={() => onOpenProposal(item)}
-                        className="cursor-pointer gap-1.5 text-xs bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-300 dark:border-amber-800 hover:bg-amber-500/20"
+                        className="cursor-pointer gap-1.5 text-xs bg-brand-gold/10 text-brand-gold-dark border-brand-gold/40 hover:bg-brand-gold/20"
                         title="Reabrir e editar no simulador"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />

@@ -228,7 +228,7 @@ export default function ProposalPdfView({
                   key={planKey}
                   className={`rounded-2xl border-2 transition-all flex flex-col justify-between overflow-hidden ${
                     isRecommended
-                      ? 'border-amber-500 shadow-xl ring-2 ring-amber-400/40 bg-gradient-to-b from-amber-50/40 via-white to-white'
+                      ? 'border-brand-gold shadow-xl ring-2 ring-brand-gold/40 bg-gradient-to-b from-brand-gold/10 via-white to-white'
                       : 'border-slate-200 bg-white shadow-sm'
                   }`}
                 >
@@ -237,15 +237,15 @@ export default function ProposalPdfView({
                     <div
                       className={`p-4 border-b text-center relative ${
                         planKey === 'ouro'
-                          ? 'bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700 text-white'
+                          ? 'bg-gradient-to-r from-brand-gold-dark via-brand-gold to-brand-gold-dark text-white'
                           : planKey === 'prata'
                             ? 'bg-gradient-to-r from-slate-700 to-slate-800 text-white'
-                            : 'bg-gradient-to-r from-amber-800 to-amber-900 text-white'
+                            : 'bg-gradient-to-r from-brand-navy to-brand-navy-dark text-white'
                       }`}
                     >
                       {isRecommended && (
                         <div className="absolute -top-1 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                          <span className="bg-amber-400 text-slate-950 font-black text-[10px] tracking-wider uppercase px-3 py-1 rounded-full shadow-md flex items-center gap-1">
+                          <span className="bg-brand-gold text-brand-navy font-black text-[10px] tracking-wider uppercase px-3 py-1 rounded-full shadow-md flex items-center gap-1">
                             <Sparkles className="w-3 h-3" /> Recomendado
                           </span>
                         </div>
@@ -308,7 +308,7 @@ export default function ProposalPdfView({
                       )}
 
                       {breakdown.excessInvoices > 0 ? (
-                        <div className="flex justify-between py-1 border-b border-slate-100 text-amber-700 font-medium">
+                        <div className="flex justify-between py-1 border-b border-slate-100 text-brand-gold-dark font-medium">
                           <span>Notas Excedentes ({breakdown.excessInvoicesCount}x):</span>
                           <span>+{formatCurrency(breakdown.excessInvoices)}</span>
                         </div>
@@ -326,7 +326,7 @@ export default function ProposalPdfView({
                     <span
                       className={`text-xs font-semibold px-2 py-1 rounded-full ${
                         isRecommended
-                          ? 'bg-amber-100 text-amber-900 border border-amber-300'
+                          ? 'bg-brand-gold/15 text-brand-navy border border-brand-gold/50'
                           : 'bg-slate-200 text-slate-700'
                       }`}
                     >
@@ -343,7 +343,7 @@ export default function ProposalPdfView({
         <div className="mb-10 page-break-inside-avoid">
           <div className="border-b pb-2 mb-4 flex items-center justify-between">
             <h3 className="text-base font-bold text-slate-900 uppercase tracking-wide flex items-center gap-2">
-              <ShieldCheck className="w-5 h-5 text-amber-600" />
+              <ShieldCheck className="w-5 h-5 text-brand-gold-dark" />
               Matriz de Escopo: O Que Está Incluso em Cada Plano
             </h3>
             <span className="text-xs text-slate-500">
@@ -398,7 +398,7 @@ export default function ProposalPdfView({
           <div className="mb-10 page-break-inside-avoid">
             <div className="border-b pb-2 mb-4 flex items-center justify-between">
               <h3 className="text-base font-bold text-slate-900 uppercase tracking-wide flex items-center gap-2">
-                <Briefcase className="w-5 h-5 text-amber-600" />
+                <Briefcase className="w-5 h-5 text-brand-gold-dark" />
                 Tabela de Serviços Societários & Vantagem Exclusiva
               </h3>
               <Badge className="bg-emerald-100 text-emerald-800 border-emerald-300 text-xs">

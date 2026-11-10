@@ -154,7 +154,7 @@ export default function CorporateServicesPage() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
-            <Briefcase className="w-6 h-6 text-amber-500" />
+            <Briefcase className="w-6 h-6 text-brand-gold-dark" />
             Serviços Societários & Tabela de Descontos
           </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400">
@@ -165,7 +165,7 @@ export default function CorporateServicesPage() {
 
         <Button
           onClick={handleOpenAdd}
-          className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold gap-2 shadow-md cursor-pointer"
+          className="bg-brand-gold hover:bg-brand-gold-dark text-brand-navy font-semibold gap-2 shadow-md cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           Novo Serviço Societário
@@ -377,7 +377,7 @@ export default function CorporateServicesPage() {
               <Button
                 type="submit"
                 disabled={isSaving}
-                className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold cursor-pointer"
+                className="bg-brand-gold hover:bg-brand-gold-dark text-brand-navy font-semibold cursor-pointer"
               >
                 {isSaving ? 'Salvando...' : 'Salvar Serviço'}
               </Button>
